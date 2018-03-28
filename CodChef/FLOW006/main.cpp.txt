@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int sumDigits(int t)
+{
+	int res;
+	for (int i = t; i > 0; i /= 10)
+	{
+		res += i % 10;
+	}
+	return res;
+}
+
+int main()
+{
+	int n;
+	int t;
+	cin >> n;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> t;
+		cout << sumDigits(t) << endl;
+	}
+}

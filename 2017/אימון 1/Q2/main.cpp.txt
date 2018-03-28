@@ -1,0 +1,142 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Point
+{
+public:
+	int _l;
+	vector<int> _e;
+	Point() :_l(-1) {}
+};
+//recursive call which fill the entire graph in the wanted way, (given it starts from the side of the upper line)
+void Fill2(Point* arr, int s, int l, Point* next, bool begin) //same just withour recursion = better results in time and space
+{
+	Point * newNext;
+	while (s < l)
+	{
+		if (begin == true)
+		{
+			begin = false;
+			next->_l = l;
+			l--;
+			unsigned int j;
+			for (j = 0; j < next->_e.size(); j++) // the first
+			{
+				if (arr[next->_e[j]]._e.size() == 1)
+				{
+					arr[next->_e[j]]._l = s;
+					s++;
+				}
+				else if (arr[next->_e[j]]._l == -1)
+					newNext = &arr[next->_e[j]];
+			}
+			next = newNext;
+		}
+		else
+		{
+			begin = true;
+			next->_l = s;
+			s++;
+			unsigned int j;
+			for (j = 0; j < next->_e.size(); j++) // the first
+			{
+				if (arr[next->_e[j]]._e.size() == 1)
+				{
+					arr[next->_e[j]]._l = l;
+					l--;
+				}
+				else if (arr[next->_e[j]]._l == -1)
+					newNext = &arr[next->_e[j]];
+			}
+			next = newNext;
+		}
+	}
+}
+
+
+void Fill(Point* arr, int s, int l, Point* next, bool begin)
+{
+	Point *newNext = NULL;
+	if (s >= l) // breaking the recursion
+		return;
+	if (begin == true)
+	{
+		next->_l = l;
+		l--;
+		unsigned int j;
+		for (j = 0; j < next->_e.size(); j++) // the first
+		{
+			if (arr[next->_e[j]]._e.size() == 1)
+			{
+				arr[next->_e[j]]._l = s;
+				s++;
+			}
+			else if (arr[next->_e[j]]._l == -1)
+				newNext = &arr[next->_e[j]];
+		}
+		return Fill(arr, s, l, newNext, false);
+	}
+	else
+	{
+		next->_l = s;
+		s++;
+		unsigned int j;
+		for (j = 0; j < next->_e.size(); j++) // the first
+		{
+			if (arr[next->_e[j]]._e.size() == 1)
+			{
+				arr[next->_e[j]]._l = l;
+				l--;
+			}
+			else if(arr[next->_e[j]]._l == -1)
+				newNext = &arr[next->_e[j]];
+		}
+		return Fill(arr, s, l, newNext, true);
+	}
+}
+
+int main()
+{
+	int N;
+	int M;
+	bool toContinue = true;
+	cin >> N;
+	Point* arr = new Point[N+1];
+	cin >> M;
+	int t, p;
+	//input graph
+	for (int i = 0; i < M; i++)
+	{
+		cin >> t;
+		cin >> p;
+		arr[t]._e.push_back(p);
+		arr[p]._e.push_back(t);
+	}
+
+	for (int i = 0; i < N && toContinue; i++) // 0->n-1
+	{
+		if (arr[i]._e.size() > 1) //says he's in the upper line
+		{
+			int c = 0;
+			for (unsigned int j = 0; j < arr[i]._e.size(); j++)
+			{
+				if (arr[arr[i]._e[j]]._e.size() > 1) // has max 1 neighbor in the upper line:
+					c++;
+			}
+
+			if (c < 2) //Found the first in the upper line : 
+			{
+				toContinue = false;
+				Fill2(arr, 1, N, &arr[i], true);
+			}
+		}
+	}
+	//output:
+
+	for (int i = 1; i <= N; i++)
+	{
+		cout << arr[i]._l << endl;
+	}
+	cin >> N;
+}

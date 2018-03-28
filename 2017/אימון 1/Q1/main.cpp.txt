@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	unsigned long int N;
+	int t;
+	cin >> N;
+	bool* arr = new bool[2 * N];
+	for (int i = 0; i <= 2 * N; i++)
+	{
+		arr[i] = false;
+	}
+	for (unsigned long int i = 0; i <= N; i++)
+	{
+		cin >> t;
+		arr[t] = true;
+	}
+
+	for (unsigned long i = 2 * N; i > 0; i-=2)
+	{
+		if (arr[i] == true)
+		{
+			if (arr[i / 2] == true)
+			{
+				cout << (i / 2) << " ";
+				for (t = i/2; t <= 2 * N&& arr[t] == true; t *= 2);
+				cout << (t / 2) << endl;
+				return 0;
+			}
+			else
+				arr[i / 2] = true;
+		}
+	}
+}
