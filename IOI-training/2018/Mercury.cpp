@@ -7,7 +7,7 @@
 #define M 0
 using namespace std;
 /*Avi Kadria 211991401
-Hole, IOI Training 2 Q1 2018.
+Hole, IOI Training 3 Q1 2018.
 */
 
 /*Problem definition: Mercury
@@ -15,8 +15,9 @@ input: x1,y1...xn,yn
 N stations, Mercury need to keep them ordered, what is the minimum distance
 output: the minimum need distance
 
-Operation: */
-/**/
+Operation: Dinamic programming, I save the result of the minimum travel from i to the end. (from each location)
+	+ some tricks to reduce it from N*K^2 to N^2 (the only llocations that matters is the ones who appears in the input
+*/
 vector<vector<int>> Rx; //[1...N][1....2*K][min,x,y] (caught him via x ray)
 vector<vector<int>> Ry; //[1...N][1....2*K][min,x,y] (caught him via y ray)
 vector<vector<int>> V;

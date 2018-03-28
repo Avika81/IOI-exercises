@@ -4,8 +4,12 @@
 using namespace std;
 #define NUMER_TOWERS 3
 #define NUMBER_LOSING_STATES 8
-/*
-* Put here any data structures you may need, as global variables.
+/*Game - TRIPOD
+each player can in his move to do a move which is - reduce a power of prime number from
+one of the towers. if a player can't make a move he loses(all towers are empty).
+
+Operation : contains a list of losing states (modulu 6) and each move make the enemy play in such position).
+	(always exist one (unless I'm in losing state) is easy to prove).
 */
 vector<int> myTowers;
 vector<int> myTowersm6;

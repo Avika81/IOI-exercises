@@ -6,6 +6,12 @@ partheness, IOI Training 1 Q2 2018.
 #include <iostream>
 using namespace std;
 
+
+//get A1- An Fruits, and F1-Fk ammounts, should return the number of continious substrings that 
+//contains exactly Fi from the fruit i.
+//operation : reserve a hash map that contains the fruits an the ammount, drop 1 from something as I enter
+//it to my window, add it when it leaves. (+1 to number of times when the length of the window is the total
+// of Fi)
 int main() {
 	std::ios::sync_with_stdio(false);
 

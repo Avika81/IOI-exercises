@@ -11,12 +11,14 @@ Hole, IOI Training 3 Q2 2018.
 */
 
 /*Problem definition: Phones
-input: x1,y1...xn,yn
-N stations, Mercury need to keep them ordered, what is the minimum distance
-output: the minimum need distance
+input: N,M,M pairs. (a graph with n vertices and m edges)
 
-Operation: */
-/**/
+output: 1st - is the graph bipartite.
+	if yes, what is the minimum number of vertices one can apply in one of the sides. (red side).
+
+Operation: BFS (any scan would work), I try to color it, if I'm getting an error it can't be.
+	if it can be, the minimum would be the min from (N',N-R) in each connected subgraph, (R - num of reds, N' - num of vertices in the connected subgraph).
+*/
 typedef enum { G, R, NONE } color;
 vector<vector<int>> graph;
 
